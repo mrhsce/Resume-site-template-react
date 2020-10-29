@@ -8,18 +8,31 @@ class Resume extends Component {
       var education = this.props.data.education.map(function(education){
         return <div key={education.school}><h3>{education.school}</h3>
         <p className="info">{education.degree} <span>&bull;</span><em className="date">{education.graduated}</em></p>
-        <p>{education.description}</p></div>
+            <ul>
+            {Array.isArray(education.description) ? education.description.map(function(line){
+                return <li>{line}</li>
+            }) : <p>{education.description}</p>}
+            </ul>
+        </div>
       })
       var work = this.props.data.work.map(function(work){
         return <div key={work.company}><h3>{work.company}</h3>
             <p className="info">{work.title}<span>&bull;</span> <em className="date">{work.years}</em></p>
-            <p>{work.description}</p>
+            <ul>
+                {Array.isArray(work.description) ? work.description.map(function(line){
+                    return <li>{line}</li>
+                }) : <p>{work.description}</p>}
+            </ul>
         </div>
       })
         var project = this.props.data.project.map(function(project){
             return <div key={project.title}><h3>{project.title}</h3>
-                <p className="info"><em className="date">{project.year}</em></p>
-                <p>{project.description}</p>
+                <p className="info">{project.about}<span>&bull;</span> <em className="date">{project.year}</em></p>
+                <ul>
+                    {Array.isArray(project.description) ? project.description.map(function(line){
+                        return <li>{line}</li>
+                    }) : <p>{project.description}</p>}
+                </ul>
             </div>
         })
       var skills = this.props.data.skills.map(function(skills){
